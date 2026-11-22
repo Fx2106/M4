@@ -2,6 +2,7 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
+
 import {
   useMutation,
   useQueryClient
@@ -18,14 +19,13 @@ const esquemaPublicacion = z.object({
 
 function PublishPostForm() {
 
-  // Accedemos al cliente de TanStack Query
   const queryClient = useQueryClient()
 
-  // Configuramos React Hook Form
   const {
     register,
     handleSubmit,
     reset,
+    setFocus,
     formState: { errors }
   } = useForm({
     resolver: zodResolver(esquemaPublicacion),
@@ -36,24 +36,32 @@ function PublishPostForm() {
     }
   })
 
-  // Configuramos la mutacion POST
+  // Configuracion del POST
   const mutacion = useMutation({
     mutationFn: crearPost,
 
     onSuccess: () => {
-      // Limpiamos el formulario
       reset()
 
-      // Actualizamos la consulta de publicaciones
       queryClient.invalidateQueries({
         queryKey: ['posts']
       })
     }
   })
 
-  // Funcion que se ejecuta al enviar
+  // Enviar publicacion
   function onSubmit(datos) {
+    mutacion.reset()
     mutacion.mutate(datos)
+  }
+
+  // Enfocar el primer campo con error
+  function onInvalid(errores) {
+    if (errores.title) {
+      setFocus('title')
+    } else if (errores.body) {
+      setFocus('body')
+    }
   }
 
   return (
@@ -65,13 +73,11 @@ function PublishPostForm() {
 
       <form
         className="publish-post-form"
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(onSubmit, onInvalid)}
         noValidate
       >
 
-        {/* Titulo */}
         <div className="form-field">
-
           <label htmlFor="title">
             Titulo de la publicacion
           </label>
@@ -79,7 +85,6 @@ function PublishPostForm() {
           <input
             id="title"
             type="text"
-            placeholder="Ej: Buscamos jugadores para nuestro equipo"
             aria-invalid={!!errors.title}
             aria-describedby={
               errors.title ? 'error-title' : undefined
@@ -88,16 +93,13 @@ function PublishPostForm() {
           />
 
           {errors.title && (
-            <p id="error-title" className="error" role="alert">
+            <p id="error-title" role="alert" className="error">
               {errors.title.message}
             </p>
           )}
-
         </div>
 
-        {/* Mensaje */}
         <div className="form-field">
-
           <label htmlFor="body">
             Mensaje
           </label>
@@ -105,7 +107,6 @@ function PublishPostForm() {
           <textarea
             id="body"
             rows="5"
-            placeholder="Escribe aqui tu publicacion..."
             aria-invalid={!!errors.body}
             aria-describedby={
               errors.body ? 'error-body' : undefined
@@ -114,24 +115,25 @@ function PublishPostForm() {
           />
 
           {errors.body && (
-            <p id="error-body" className="error" role="alert">
+            <p id="error-body" role="alert" className="error">
               {errors.body.message}
             </p>
           )}
-
         </div>
 
-        {/* Boton */}
         <button
           type="submit"
           disabled={mutacion.isPending}
         >
-          {mutacion.isPending
-            ? 'Publicando...'
-            : 'Publicar'}
+          {mutacion.isPending ? 'Publicando...' : 'Publicar'}
         </button>
 
-        {/* Resultado */}
+        {mutacion.isPending && (
+          <p role="status">
+            Enviando tu publicacion al servidor...
+          </p>
+        )}
+
         {mutacion.isError && (
           <p className="error" role="alert">
             Error: {mutacion.error.message}

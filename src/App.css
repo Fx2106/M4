@@ -1,5 +1,5 @@
 
-/* Contenedor principal */
+/* CONTENEDOR PRINCIPAL */
 
 #root {
   min-height: 100vh;
@@ -11,7 +11,7 @@ main {
   padding: 40px 24px;
 }
 
-/* Cabecera */
+/* CABECERA */
 
 header {
   display: flex;
@@ -32,7 +32,7 @@ header p {
   font-size: 14px;
 }
 
-/* Bienvenida */
+/* BIENVENIDA */
 
 .welcome-section {
   margin-top: 60px;
@@ -40,6 +40,7 @@ header p {
   background: linear-gradient(135deg, #171f35, #101729);
   border: 1px solid #293653;
   border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
 
 .welcome-section h2 {
@@ -55,7 +56,7 @@ header p {
   max-width: 600px;
 }
 
-/* Formulario de registro */
+/* FORMULARIOS */
 
 .register-section,
 .publish-post-section {
@@ -65,6 +66,7 @@ header p {
   background: linear-gradient(135deg, #171f35, #101729);
   border: 1px solid #293653;
   border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
 }
 
 .register-section h2,
@@ -80,12 +82,12 @@ header p {
   font-size: 15px;
 }
 
-/* Campos */
-
 .register-form,
 .publish-post-form {
   margin-top: 30px;
 }
+
+/* CAMPOS */
 
 .form-field {
   display: flex;
@@ -121,7 +123,7 @@ header p {
   font-family: inherit;
 }
 
-/* Terminos */
+/* TERMINOS */
 
 .terms {
   display: flex;
@@ -135,7 +137,7 @@ header p {
   accent-color: #7c8cff;
 }
 
-/* Botones */
+/* BOTONES */
 
 .register-section button,
 .publish-post-section button {
@@ -147,6 +149,7 @@ header p {
   border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
+  transition: background 0.2s;
 }
 
 .register-section button:hover,
@@ -160,7 +163,7 @@ header p {
   cursor: not-allowed;
 }
 
-/* Errores y exitos */
+/* ERRORES Y MENSAJES */
 
 .error {
   color: #ff6b7a;
@@ -171,15 +174,15 @@ header p {
 .success-message {
   color: #4ade80;
   font-size: 14px;
+  line-height: 1.6;
   margin-top: 15px;
 }
 
-.form-field input[aria-invalid="true"],
-.form-field textarea[aria-invalid="true"] {
+[aria-invalid="true"] {
   border-color: #ff6b7a;
 }
 
-/* Comunidad */
+/* COMUNIDAD */
 
 .community-section {
   max-width: 900px;
@@ -222,6 +225,7 @@ header p {
 .publication-card p {
   color: #a5b4cf;
   font-size: 14px;
+  line-height: 1.6;
 }
 
 .publication-card span {
@@ -229,7 +233,17 @@ header p {
   font-size: 12px;
 }
 
-/* Adaptacion a moviles */
+/* ACCESIBILIDAD Y TECLADO */
+
+.form-field input:focus-visible,
+.form-field textarea:focus-visible,
+.terms input:focus-visible,
+button:focus-visible {
+  outline: 2px solid #a5b4fc;
+  outline-offset: 3px;
+}
+
+/* ADAPTACION A MOVILES */
 
 @media (max-width: 600px) {
   header {

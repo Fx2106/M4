@@ -3,17 +3,13 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
-// Esquema de validacion con Zod
+// Esquema de validacion
 const esquemaRegistro = z
   .object({
     nombre: z.string().min(2, 'El nombre es demasiado corto'),
-
     email: z.email('Email no valido'),
-
     password: z.string().min(8, 'Minimo 8 caracteres'),
-
     repetir: z.string(),
-
     aceptaTerminos: z.literal(true, {
       error: 'Debes aceptar los terminos'
     })
@@ -25,11 +21,15 @@ const esquemaRegistro = z
 
 function RegisterForm() {
 
-  // Configuracion de React Hook Form
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting }
+    setFocus,
+    formState: {
+      errors,
+      isSubmitting,
+      isSubmitSuccessful
+    }
   } = useForm({
     resolver: zodResolver(esquemaRegistro),
 
@@ -42,16 +42,24 @@ function RegisterForm() {
     }
   })
 
-  // Funcion que se ejecuta cuando los datos son validos
-  async function onSubmit(datos) {
-
-    // Simulamos una espera del servidor
+  // Envio simulado
+  async function onSubmit() {
     await new Promise((resolve) => setTimeout(resolve, 600))
+  }
 
-    console.log('Registro recibido:', {
-      nombre: datos.nombre,
-      email: datos.email
-    })
+  // Llevar el foco al primer campo incorrecto
+  function onInvalid(errores) {
+    if (errores.nombre) {
+      setFocus('nombre')
+    } else if (errores.email) {
+      setFocus('email')
+    } else if (errores.password) {
+      setFocus('password')
+    } else if (errores.repetir) {
+      setFocus('repetir')
+    } else if (errores.aceptaTerminos) {
+      setFocus('aceptaTerminos')
+    }
   }
 
   return (
@@ -62,18 +70,17 @@ function RegisterForm() {
 
       <form
         className="register-form"
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(onSubmit, onInvalid)}
         noValidate
       >
 
-        {/* Nombre de jugador */}
+        {/* Nombre */}
         <div className="form-field">
           <label htmlFor="nombre">Nombre de jugador</label>
 
           <input
             id="nombre"
             type="text"
-            placeholder="Tu nombre gaming"
             autoComplete="nickname"
             aria-invalid={!!errors.nombre}
             aria-describedby={
@@ -96,7 +103,6 @@ function RegisterForm() {
           <input
             id="email"
             type="email"
-            placeholder="nombre@ejemplo.com"
             autoComplete="email"
             aria-invalid={!!errors.email}
             aria-describedby={
@@ -119,7 +125,6 @@ function RegisterForm() {
           <input
             id="password"
             type="password"
-            placeholder="Minimo 8 caracteres"
             autoComplete="new-password"
             aria-invalid={!!errors.password}
             aria-describedby={
@@ -142,7 +147,6 @@ function RegisterForm() {
           <input
             id="repetir"
             type="password"
-            placeholder="Repite tu contrasena"
             autoComplete="new-password"
             aria-invalid={!!errors.repetir}
             aria-describedby={
@@ -158,7 +162,7 @@ function RegisterForm() {
           )}
         </div>
 
-        {/* Aceptar terminos */}
+        {/* Terminos */}
         <div className="terms">
           <input
             id="aceptaTerminos"
@@ -181,10 +185,18 @@ function RegisterForm() {
           )}
         </div>
 
-        {/* Boton de envio */}
+        {/* Boton */}
         <button type="submit" disabled={isSubmitting}>
           {isSubmitting ? 'Registrando...' : 'Crear cuenta'}
         </button>
+
+        {/* Mensaje de exito */}
+        {isSubmitSuccessful && (
+          <p className="success-message" role="status">
+            ¡Formulario validado correctamente!
+            El registro todavia no esta conectado a un servidor.
+          </p>
+        )}
 
       </form>
     </section>

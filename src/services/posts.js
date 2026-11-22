@@ -1,6 +1,9 @@
 
 import { z } from 'zod'
 
+// URL base obtenida del archivo .env
+const API_URL = import.meta.env.VITE_API_URL
+
 // Esquema de una publicacion
 const esquemaPost = z.object({
   id: z.number(),
@@ -14,9 +17,8 @@ const esquemaListaPosts = z.array(esquemaPost)
 
 // GET: obtener publicaciones
 export async function obtenerPosts() {
-  const respuesta = await fetch(
-    'https://jsonplaceholder.typicode.com/posts'
-  )
+
+  const respuesta = await fetch(`${API_URL}/posts`)
 
   if (!respuesta.ok) {
     throw new Error(`Error HTTP: ${respuesta.status}`)
@@ -37,19 +39,19 @@ export async function obtenerPosts() {
 
 // POST: crear una publicacion
 export async function crearPost(datos) {
-  const respuesta = await fetch(
-    'https://jsonplaceholder.typicode.com/posts',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        ...datos,
-        userId: 1
-      })
-    }
-  )
+
+  const respuesta = await fetch(`${API_URL}/posts`, {
+    method: 'POST',
+
+    headers: {
+      'Content-Type': 'application/json'
+    },
+
+    body: JSON.stringify({
+      ...datos,
+      userId: 1
+    })
+  })
 
   if (!respuesta.ok) {
     throw new Error(`Error al crear la publicacion: ${respuesta.status}`)
@@ -57,6 +59,5 @@ export async function crearPost(datos) {
 
   const publicacion = await respuesta.json()
 
-  // Comprobamos tambien la respuesta del POST
   return esquemaPost.parse(publicacion)
 }

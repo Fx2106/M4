@@ -4,7 +4,6 @@ import { obtenerPosts } from '../services/posts'
 
 function CommunityFeed() {
 
-  // Pedimos los datos utilizando TanStack Query
   const {
     data: publicaciones,
     isPending,
@@ -15,35 +14,34 @@ function CommunityFeed() {
     queryFn: obtenerPosts
   })
 
-  // Estado de carga
   if (isPending) {
     return (
       <section className="community-section">
         <h2>Comunidad gaming</h2>
-        <p>Cargando publicaciones...</p>
+        <p role="status">
+          Cargando publicaciones...
+        </p>
       </section>
     )
   }
 
-  // Estado de error
   if (isError) {
     return (
       <section className="community-section">
         <h2>Comunidad gaming</h2>
-        <p className="error">
+        <p className="error" role="alert">
           Error al cargar las publicaciones: {error.message}
         </p>
       </section>
     )
   }
 
-  // Datos recibidos correctamente
   return (
     <section className="community-section">
 
       <h2>Actividad de la comunidad</h2>
 
-      <p>Descubre lo que se está publicando.</p>
+      <p>Descubre lo que se esta publicando.</p>
 
       <div className="publication-list">
 
