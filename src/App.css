@@ -1,74 +1,52 @@
-/* Contenedor principal */
 
-#root {
-  min-height: 100vh;
+/* Publicaciones de la comunidad */
+
+.community-section {
+  max-width: 900px;
+  margin: 50px auto;
+  padding: 40px;
 }
 
-main {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 40px 24px;
+.community-section h2 {
+  font-size: 30px;
 }
 
-/* Cabecera */
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 24px;
-  border-bottom: 1px solid #263047;
+.publication-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 30px;
 }
 
-header h1 {
-  color: #7c8cff;
-  font-size: 24px;
-  letter-spacing: 3px;
+.publication-card {
+  padding: 22px;
+  background: #0c1425;
+  border: 1px solid #293653;
+  border-radius: 12px;
 }
 
-header p {
-  color: #94a3b8;
+.publication-card h3 {
+  color: #8b9aff;
+  font-size: 17px;
+  text-transform: capitalize;
+}
+
+.publication-card p {
+  color: #a5b4cf;
   font-size: 14px;
 }
 
-/* Presentación */
-
-section {
-  margin-top: 100px;
-  padding: 70px 50px;
-  background: linear-gradient(135deg, #171f35, #101729);
-  border: 1px solid #293653;
-  border-radius: 20px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+.publication-card span {
+  color: #6578ed;
+  font-size: 12px;
 }
-
-section h2 {
-  color: #ffffff;
-  font-size: 38px;
-  margin-bottom: 20px;
-}
-
-section p {
-  color: #a5b4cf;
-  font-size: 17px;
-  line-height: 1.7;
-  max-width: 600px;
-}
-
-/* Adaptación a móviles */
 
 @media (max-width: 600px) {
-  header {
-    align-items: flex-start;
-    flex-direction: column;
+  .publication-list {
+    grid-template-columns: 1fr;
   }
 
-  section {
-    margin-top: 50px;
-    padding: 35px 24px;
-  }
-
-  section h2 {
-    font-size: 28px;
+  .community-section {
+    padding: 25px;
   }
 }
