@@ -1,20 +1,16 @@
 import './App.css'
+import Header from './components/Header.jsx'
+import Welcome from './components/Welcome.jsx'
 
 function App() {
   return (
     <main>
-      <header>
-        <h1>PLAYER HUB</h1>
-        <p>Tu comunidad gaming</p>
-      </header>
+      <Header />
 
-      <section>
-        <h2>Bienvenido a Player Hub</h2>
-        <p>
-          Tu espacio para conectar con otros jugadores,
-          descubrir equipos y crear tu perfil.
-        </p>
-      </section>
+      <Welcome
+        title="Bienvenido a Player Hub"
+        description="Tu espacio para conectar con otros jugadores, descubrir equipos y crear tu perfil."
+      />
     </main>
   )
 }
