@@ -5,6 +5,7 @@ import Header from './components/Header.jsx'
 import Welcome from './components/Welcome.jsx'
 import RegisterForm from './components/RegisterForm.jsx'
 import CommunityFeed from './components/CommunityFeed.jsx'
+import PublishPostForm from './components/PublishPostForm.jsx'
 
 function App() {
   return (
@@ -16,6 +17,8 @@ function App() {
         title="Bienvenido a Player Hub"
         description="Tu espacio para conectar con otros jugadores, descubrir equipos y crear tu perfil."
       />
+
+      <PublishPostForm />
 
       <CommunityFeed />
 

@@ -1,14 +1,202 @@
 
-/* Publicaciones de la comunidad */
+/* Contenedor principal */
+
+#root {
+  min-height: 100vh;
+}
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+/* Cabecera */
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #263047;
+}
+
+header h1 {
+  color: #7c8cff;
+  font-size: 24px;
+  letter-spacing: 3px;
+}
+
+header p {
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+/* Bienvenida */
+
+.welcome-section {
+  margin-top: 60px;
+  padding: 50px;
+  background: linear-gradient(135deg, #171f35, #101729);
+  border: 1px solid #293653;
+  border-radius: 20px;
+}
+
+.welcome-section h2 {
+  color: white;
+  font-size: 38px;
+  margin-bottom: 20px;
+}
+
+.welcome-section p {
+  color: #a5b4cf;
+  font-size: 17px;
+  line-height: 1.7;
+  max-width: 600px;
+}
+
+/* Formulario de registro */
+
+.register-section,
+.publish-post-section {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 40px;
+  background: linear-gradient(135deg, #171f35, #101729);
+  border: 1px solid #293653;
+  border-radius: 20px;
+}
+
+.register-section h2,
+.publish-post-section h2 {
+  color: white;
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.register-section > p,
+.publish-post-section > p {
+  color: #a5b4cf;
+  font-size: 15px;
+}
+
+/* Campos */
+
+.register-form,
+.publish-post-form {
+  margin-top: 30px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.form-field label,
+.terms label {
+  color: #cbd5e1;
+  font-size: 14px;
+}
+
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  background: #090d18;
+  color: white;
+  outline: none;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+  border-color: #7c8cff;
+}
+
+.form-field textarea {
+  resize: vertical;
+  font-family: inherit;
+}
+
+/* Terminos */
+
+.terms {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 25px 0;
+}
+
+.terms input {
+  accent-color: #7c8cff;
+}
+
+/* Botones */
+
+.register-section button,
+.publish-post-section button {
+  width: 100%;
+  padding: 14px;
+  background: #6578ed;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.register-section button:hover,
+.publish-post-section button:hover {
+  background: #8291ff;
+}
+
+.register-section button:disabled,
+.publish-post-section button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Errores y exitos */
+
+.error {
+  color: #ff6b7a;
+  font-size: 13px;
+  margin: 0;
+}
+
+.success-message {
+  color: #4ade80;
+  font-size: 14px;
+  margin-top: 15px;
+}
+
+.form-field input[aria-invalid="true"],
+.form-field textarea[aria-invalid="true"] {
+  border-color: #ff6b7a;
+}
+
+/* Comunidad */
 
 .community-section {
   max-width: 900px;
   margin: 50px auto;
   padding: 40px;
+  background: linear-gradient(135deg, #171f35, #101729);
+  border: 1px solid #293653;
+  border-radius: 20px;
 }
 
 .community-section h2 {
+  color: white;
   font-size: 30px;
+}
+
+.community-section > p {
+  color: #a5b4cf;
 }
 
 .publication-list {
@@ -41,12 +229,29 @@
   font-size: 12px;
 }
 
+/* Adaptacion a moviles */
+
 @media (max-width: 600px) {
-  .publication-list {
-    grid-template-columns: 1fr;
+  header {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
+  .welcome-section {
+    padding: 30px 24px;
+  }
+
+  .welcome-section h2 {
+    font-size: 28px;
+  }
+
+  .register-section,
+  .publish-post-section,
   .community-section {
     padding: 25px;
+  }
+
+  .publication-list {
+    grid-template-columns: 1fr;
   }
 }
